@@ -1,10 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-transparent text-white/80">
+    <footer className="bg-[#111]/80 backdrop-blur-md text-white/80">
       <div className="mx-auto w-full max-w-screen-xl mt-[500px] py-12">
         {/* Top Section */}
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
