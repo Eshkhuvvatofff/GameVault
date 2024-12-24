@@ -6,6 +6,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import NotFound from './Pages/NotFound/NotFound';
 import './App.css';
+import SearchResults from './components/search/Search';
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const AppContent: React.FC = () => {
         <Route path="/add-game" element={<AddGame />} />
         <Route path="/*" element={<Navigate to="/404" />} />
         <Route path="/404" element={<NotFound />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

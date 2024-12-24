@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handlePopState = () => {
+      navigate('/', { replace: true });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [navigate]);
+
   return (
     <div>
-      <h1>404 Not Found</h1>
+      <h1>404 - NotFound</h1>
     </div>
-  )
-}
+  );
+};
 
-export default NotFound
+export default NotFound;
