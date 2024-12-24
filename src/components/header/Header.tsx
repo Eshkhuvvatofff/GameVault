@@ -1,128 +1,164 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTelegram, FaGithub, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa';
-import "./head.css";
+import { FaBars, FaTimes } from 'react-icons/fa';
+import './head.css'
 
 const Header = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const navigate = useNavigate();
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
+      setSearchQuery("");
+      setIsSearchExpanded(false);
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchExpanded(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <header className="bg-black shadow-lg">
-      {/* Asosiy navigatsiya */}
-      <nav className="px-4 lg:px-6 py-4">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="flex items-center gap-4 justify-between">
+    <header className="bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] shadow-lg h-16">
+      <nav className="px-4 lg:px-6 h-full">
+        <div className="max-w-screen-xl mx-auto flex items-center justify-between h-full">
+          {/* Logo va Search Container */}
+          <div className="flex items-center flex-1 max-w-[55%]">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3">
-              <div className='w-8 h-8 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-full flex items-center justify-center'>
-                <span className="text-white font-bold">G</span>
-              </div>
-              <span className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text">
-                GameStore
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+              <span className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
+                GameVault
               </span>
             </Link>
 
-            {/* Qidiruv */}
-            <div className="hidden md:flex flex-1 max-w-lg px-4">
-              <form onSubmit={handleSearch} className="relative w-full">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search for games..."
-                  className="w-full h-10 px-4 rounded-lg bg-gray-700 text-white placeholder-gray-400 outline-none focus:outline-none focus:ring-0 focus:border-gray-700"
-                />
-                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <svg className="w-5 h-5 text-gray-400 hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Desktop Search */}
+            <div ref={searchRef} className="hidden md:block ml-6">
+              <div className={`relative flex items-center ${isSearchExpanded ? 'w-[400px]' : 'w-10'} transition-all duration-400`}>
+                <div className={`absolute inset-0 bg-gray-700/50 rounded-full transition-all duration-300 ${isSearchExpanded ? 'w-full' : 'w-10'}`}></div>
+                <button
+                  type="button"
+                  onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+                  className="absolute left-0 z-10 p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-gray-700/50"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
-              </form>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-4 space-x-8">
-              <div className='flex items-center space-x-5'>
-                <Link to="/" className="text-gray-300 hover:text-pink-500 transition-colors nav-link">Home</Link>
-                <Link to="/categories" className="text-gray-300 hover:text-pink-500 transition-colors nav-link">Categories</Link>
-                <Link to="/popular" className="text-gray-300 hover:text-pink-500 transition-colors nav-link">Popular</Link>
-                <Link to="/contact" className="text-gray-300 hover:text-pink-500 transition-colors nav-link">Contact</Link>
+                {isSearchExpanded && (
+                  <form onSubmit={handleSearch} className="w-full">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search for games..."
+                      className="w-full h-10 pl-10 pr-4 bg-transparent text-white rounded-full outline-none focus:outline-none focus:ring-0 focus:border-gray-700"
+                      autoFocus
+                    />
+                  </form>
+                )}
               </div>
-              <div className="hidden lg:flex items-center space-x-4">
+            </div>
+          </div>
+
+          {/* Desktop Navigation - Centered when search is closed */}
+          <div className={`hidden lg:flex items-center transition-all duration-300 ${isSearchExpanded ? '-ml-20' : 'absolute left-1/2 -translate-x-1/2'}`}>
+            <div className="flex items-center space-x-14">
+              <Link to="/" className="text-gray-300 hover:text-white nav-link transition-colors">
+                Home
+              </Link>
+              <Link to="/games" className="text-gray-300 hover:text-white nav-link transition-colors">
+                Games
+              </Link>
+              <Link to="/categories" className="text-gray-300 hover:text-white nav-link transition-colors">
+                Categories
+              </Link>
+              <Link to="/about" className="text-gray-300 hover:text-white nav-link transition-colors">
+                About
+              </Link>
+            </div>
+          </div>
+
+          {/* Login/Register buttons */}
+          <div className="hidden lg:flex items-center space-x-4 ml-8">
+            <Link
+              to="/login"
+              className="relative px-5 py-1.5 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] hover:from-[#FF4B2B] hover:to-[#FF416C] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#FF416C]/50 hover:-translate-y-0.3 hover:scale-105 active:scale-95 overflow-hidden group"
+            >
+              <span className="relative z-10">Login</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+            </Link>
+            <Link
+              to="/register"
+              className="relative px-3 py-1.5 bg-gradient-to-r from-[#4776E6] to-[#8E54E9] hover:from-[#8E54E9] hover:to-[#4776E6] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#8E54E9]/50 hover:-translate-y-0.3 hover:scale-105 active:scale-95 overflow-hidden group"
+            >
+              <span className="relative z-10">Register</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#4776E6] to-[#8E54E9] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden text-gray-400 hover:text-white transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden mt-4 pb-4">
+            <form onSubmit={handleSearch} className="relative mb-4">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for games..."
+                className="w-full h-10 px-4 bg-gray-700 text-white rounded-lg outline-none focus:outline-none focus:ring-0 focus:border-gray-700"
+              />
+              <button type="submit" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </form>
+            <div className="flex flex-col space-y-4">
+              <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
+              <Link to="/games" className="text-gray-300 hover:text-white transition-colors">Games</Link>
+              <Link to="/categories" className="text-gray-300 hover:text-white transition-colors">Categories</Link>
+              <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
+              <div className="pt-4 flex flex-col space-y-4">
                 <Link
                   to="/login"
-                  className="px-5 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white rounded-lg transition-all duration-300 text-sm shadow-lg hover:shadow-rose-500/50"
+                  className="relative text-center px-3 py-1.5 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] hover:from-[#FF4B2B] hover:to-[#FF416C] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#FF416C]/50 hover:-translate-y-0.5 hover:scale-105 active:scale-95 overflow-hidden group"
                 >
-                  Login
+                  <span className="relative z-10">Login</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
                 </Link>
                 <Link
                   to="/register"
-                  className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-lg transition-all duration-300 text-sm shadow-lg hover:shadow-indigo-500/50"
+                  className="relative text-center px-3 py-1.5 bg-gradient-to-r from-[#4776E6] to-[#8E54E9] hover:from-[#8E54E9] hover:to-[#4776E6] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#8E54E9]/50 hover:-translate-y-0.5 hover:scale-105 active:scale-95 overflow-hidden group"
                 >
-                  Register
+                  <span className="relative z-10">Register</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#4776E6] to-[#8E54E9] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
                 </Link>
               </div>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden text-gray-400 hover:text-pink-500 transition-colors"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
-            </button>
           </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="lg:hidden mt-4 pb-4">
-              <form onSubmit={handleSearch} className="relative mb-4">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search games..."
-                  className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg outline-none focus:outline-none focus:ring-0 focus:border-gray-700"
-                />
-                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
-              </form>
-              <div className="flex flex-col space-y-4">
-                <Link to="/" className="text-gray-300 hover:text-pink-500 transition-colors">Home</Link>
-                <Link to="/categories" className="text-gray-300 hover:text-pink-500 transition-colors">Categories</Link>
-                <Link to="/popular" className="text-gray-300 hover:text-pink-500 transition-colors">Popular</Link>
-                <Link to="/contact" className="text-gray-300 hover:text-pink-500 transition-colors">Contact</Link>
-                <div className="pt-4 flex flex-col space-y-4">
-                  <Link
-                    to="/login"
-                    className="text-center px-3 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white rounded-lg transition-all duration-300 text-sm shadow-lg hover:shadow-rose-500/50"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/register"
-                    className="text-center px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-lg transition-all duration-300 text-sm shadow-lg hover:shadow-indigo-500/50"
-                  >
-                    Register
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        )}
       </nav>
     </header>
   );
