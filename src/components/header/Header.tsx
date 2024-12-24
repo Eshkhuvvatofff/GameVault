@@ -31,7 +31,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] shadow-lg h-16">
+    <header className="bg-transparent shadow-lg h-16">
       <nav className="px-4 lg:px-6 h-full">
         <div className="max-w-screen-xl mx-auto flex items-center justify-between h-full">
           {/* Logo va Search Container */}

@@ -4,8 +4,8 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] text-white/80">
-      <div className="mx-auto w-full max-w-screen-xl px-4 py-12">
+    <footer className="bg-transparent text-white/80">
+      <div className="mx-auto w-full max-w-screen-xl mt-[500px] py-12">
         {/* Top Section */}
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
           {/* Logo & Description */}
