@@ -105,7 +105,15 @@ export default {
   				'50%': {
   					'background-position': '100% 50%',
   				},
-  			}
+  			},
+  			'gradient-xy': {
+  				'0%, 100%': {
+  					'background-position': '0% 50%',
+  				},
+  				'50%': {
+  					'background-position': '100% 50%',
+  				},
+  			},
   		},
   		animation: {
   			marquee: 'marquee var(--duration) infinite linear',
