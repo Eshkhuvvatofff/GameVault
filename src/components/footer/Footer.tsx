@@ -1,137 +1,135 @@
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaInstagram, FaGithub, FaDiscord } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111]/80 backdrop-blur-md text-white/80">
-      <div className="mx-auto w-full max-w-screen-xl mt-[500px] py-12">
+    <footer className="bg-transparent mt-[500px] backdrop-blur-md text-white/80">
+      <div className="mx-auto w-full max-w-screen-xl px-4 py-12">
         {/* Top Section */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
-          {/* Logo & Description */}
-          <div className="lg:col-span-2">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start items-center">
+          {/* Logo Section */}
+          <div className="flex flex-col items-center md:items-start mb-8 md:mb-0 md:max-w-xs">
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
               <span className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                 GameStore
               </span>
             </Link>
-            <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-md">
+            
+            <p className="mt-4 text-sm text-gray-400 leading-relaxed text-center md:text-left">
               Discover the best gaming experience with our curated collection of games. 
               Join our community and explore the world of gaming.
             </p>
+            
+            <div className="flex space-x-6 mt-6">
+              <SocialLink href="#" icon={<FaFacebookF />} />
+              <SocialLink href="#" icon={<FaTwitter />} />
+              <SocialLink href="#" icon={<FaInstagram />} />
+              <SocialLink href="#" icon={<FaGithub />} />
+              <SocialLink href="#" icon={<FaDiscord />} />
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/games" className="text-sm hover:text-blue-400 transition-colors">
-                  Games
-                </Link>
-              </li>
-              <li>
-                <Link to="/categories" className="text-sm hover:text-blue-400 transition-colors">
-                  Categories
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-sm hover:text-blue-400 transition-colors">
-                  About Us
-                </Link>
-              </li>
-            </ul>
+          {/* Middle Section - Links */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center md:justify-items-start mb-8 md:mb-0">
+            {/* Quick Links */}
+            <div>
+              <FooterSection title="Quick Links">
+                <FooterLink to="/games" text="Games" />
+                <FooterLink to="/categories" text="Categories" />
+                <FooterLink to="/about" text="About Us" />
+                <FooterLink to="/blog" text="Blog" />
+              </FooterSection>
+            </div>
+
+            {/* Support */}
+            <div>
+              <FooterSection title="Support">
+                <FooterLink to="/contact" text="Contact" />
+                <FooterLink to="/faq" text="FAQ" />
+                <FooterLink to="/help" text="Help Center" />
+                <FooterLink to="/community" text="Community" />
+              </FooterSection>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <FooterSection title="Legal">
+                <FooterLink to="/privacy" text="Privacy Policy" />
+                <FooterLink to="/terms" text="Terms of Service" />
+                <FooterLink to="/cookies" text="Cookie Policy" />
+                <FooterLink to="/licenses" text="Licenses" />
+              </FooterSection>
+            </div>
           </div>
 
-          {/* Support */}
-          <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold text-white mb-4">Support</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/contact" className="text-sm hover:text-blue-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="text-sm hover:text-blue-400 transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link to="/help" className="text-sm hover:text-blue-400 transition-colors">
-                  Help Center
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold text-white mb-4">Legal</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/privacy" className="text-sm hover:text-blue-400 transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms" className="text-sm hover:text-blue-400 transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div className="lg:col-span-1">
+          {/* Newsletter Section */}
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-semibold text-white mb-4">Newsletter</h3>
-            <form className="mt-2">
-              <div className="flex flex-col space-y-2">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="px-4 py-2 bg-gray-800/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
+            <p className="text-sm text-gray-400 mb-4 text-center md:text-left">
+              Subscribe to our newsletter for updates and exclusive offers.
+            </p>
+            <form className="w-full md:max-w-xs space-y-2">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="w-full px-4 py-2.5 bg-white/5 border border-gray-700/50 rounded-lg 
+                  text-sm focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50
+                  transition-all duration-300"
+              />
+              <button
+                type="submit"
+                className="w-full px-4 py-2.5 bg-gradient-to-r from-blue-500 to-purple-500 
+                  hover:from-blue-600 hover:to-purple-600 rounded-lg text-sm font-medium
+                  transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
+                  focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              >
+                Subscribe
+              </button>
             </form>
           </div>
         </div>
 
         {/* Divider */}
-        <hr className="my-8 border-gray-700/50" />
+        <hr className="my-8 border-gray-800" />
 
         {/* Bottom Section */}
-        <div className="flex flex-col items-center space-y-4 sm:flex-row sm:justify-between sm:space-y-0">
-          {/* Copyright */}
+        <div className="text-center md:text-left">
           <div className="text-sm text-gray-400">
             © {new Date().getFullYear()} GameStore. All rights reserved.
-          </div>
-
-          {/* Social Links */}
-          <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-              <FaFacebookF className="w-5 h-5" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-              <FaTwitter className="w-5 h-5" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-              <FaInstagram className="w-5 h-5" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-              <FaGithub className="w-5 h-5" />
-            </a>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+
+// Helper Components
+const FooterSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="text-center md:text-left">
+    <h3 className="text-lg font-semibold text-white mb-4">{title}</h3>
+    {children}
+  </div>
+);
+
+const FooterLink = ({ to, text }: { to: string; text: string }) => (
+  <Link 
+    to={to} 
+    className="block text-sm text-gray-400 hover:text-white transition-colors duration-300 py-1.5"
+  >
+    {text}
+  </Link>
+);
+
+const SocialLink = ({ href, icon }: { href: string; icon: React.ReactNode }) => (
+  <a 
+    href={href} 
+    className="text-gray-400 hover:text-white transition-colors duration-300"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span className="text-xl">{icon}</span>
+  </a>
+);
 
 export default Footer;
