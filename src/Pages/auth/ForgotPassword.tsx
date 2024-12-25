@@ -1,5 +1,4 @@
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground'
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 const ForgotPassword = () => {
