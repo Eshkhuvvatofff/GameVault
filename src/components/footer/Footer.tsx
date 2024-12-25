@@ -10,9 +10,11 @@ const Footer = () => {
           {/* Logo Section */}
           <div className="flex flex-col items-center md:items-start mb-8 md:mb-0 md:max-w-xs">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+            <div className="w-8 h-8rounded-full">
+                  <img src="/logo.png" alt="Webstite logo" />
+                </div>
               <span className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
-                GameStore
+                GameVault
               </span>
             </Link>
             

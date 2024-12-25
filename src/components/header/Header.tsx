@@ -42,7 +42,9 @@ const Header = () => {
             <div className="flex items-center flex-1 max-w-[55%]">
               {/* Logo */}
               <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                <div className="w-8 h-8rounded-full">
+                  <img src="/logo.png" alt="Webstite logo" />
+                </div>
                 <span className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                   GameVault
                 </span>
