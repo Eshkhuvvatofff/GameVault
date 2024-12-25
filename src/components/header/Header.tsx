@@ -34,7 +34,7 @@ const Header = () => {
     <>
       {/* Headerning balandligiga teng bo'lgan placeholder div */}
       <div className="h-16"></div>
-      
+
       <header className="bg-[#111]/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-lg">
         <nav className="px-4 lg:px-6 h-16">
           <div className="max-w-screen-xl mx-auto flex items-center justify-between h-full">
@@ -98,14 +98,14 @@ const Header = () => {
             {/* Login/Register buttons */}
             <div className="hidden lg:flex items-center space-x-4 ml-8">
               <Link
-                to="/login"
+                to="/signin"
                 className="relative px-5 py-1.5 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] hover:from-[#FF4B2B] hover:to-[#FF416C] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#FF416C]/50 hover:-translate-y-0.3 hover:scale-105 active:scale-95 overflow-hidden group"
               >
                 <span className="relative z-10">Login</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
               </Link>
               <Link
-                to="/register"
+                to="/signup"
                 className="relative px-3 py-1.5 bg-gradient-to-r from-[#4776E6] to-[#8E54E9] hover:from-[#8E54E9] hover:to-[#4776E6] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#8E54E9]/50 hover:-translate-y-0.3 hover:scale-105 active:scale-95 overflow-hidden group"
               >
                 <span className="relative z-10">Register</span>
@@ -158,14 +158,14 @@ const Header = () => {
                   </Link>
                   <div className="pt-4 flex flex-col space-y-4">
                     <Link
-                      to="/login"
+                      to={"/signin"}
                       className="relative text-center px-3 py-1.5 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] hover:from-[#FF4B2B] hover:to-[#FF416C] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#FF416C]/50 hover:-translate-y-0.5 hover:scale-105 active:scale-95 overflow-hidden group"
                     >
                       <span className="relative z-10">Login</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
                     </Link>
                     <Link
-                      to="/register"
+                      to={"/signup"}
                       className="relative text-center px-3 py-1.5 bg-gradient-to-r from-[#4776E6] to-[#8E54E9] hover:from-[#8E54E9] hover:to-[#4776E6] text-white rounded-lg transition-all duration-500 text-sm shadow-lg hover:shadow-[#8E54E9]/50 hover:-translate-y-0.5 hover:scale-105 active:scale-95 overflow-hidden group"
                     >
                       <span className="relative z-10">Register</span>

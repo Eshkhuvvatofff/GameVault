@@ -8,8 +8,10 @@ import NotFound from './Pages/NotFound/NotFound';
 import './App.css';
 import SearchResults from './components/search/Search';
 import ParticleBackground from './components/ParticleBackground/ParticleBackground';
-import Login from './Pages/auth/Login';
+import SignIn from './Pages/auth/Login';
 import SignUp from './Pages/auth/SignUp';
+import ForgotPassword from './Pages/auth/ForgotPassword';
+import ResetPassword from './Pages/auth/ResetPassword';
 
 const App: React.FC = () => {
   return (
@@ -23,7 +25,7 @@ const AppContent: React.FC = () => {
   const location = useLocation();
 
   // header va footer faqat login sahifasida ko'rsatilmasligi kerak
-  const shouldShowHeaderFooter = location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/404'; 
+  const shouldShowHeaderFooter = location.pathname !== '/SignIn' && location.pathname !== '/signup' && location.pathname !== '/404' && location.pathname !== '/restorepassword' && location.pathname !== '/reset-password'; 
 
   return (
     <>
@@ -35,8 +37,10 @@ const AppContent: React.FC = () => {
         <Route path="/*" element={<Navigate to="/404" />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/restorepassword" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

@@ -2,7 +2,7 @@ import ParticleBackground from '@/components/ParticleBackground/ParticleBackgrou
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const SignUp = () => {
+const ResetPassword = () => {
     return (
         <div className='h-screen w-screen flex items-center justify-center'>
             <ParticleBackground />
@@ -27,7 +27,7 @@ const SignUp = () => {
                 shadow-[0_0_50px_rgba(236,72,153,0.5)]
                 hover:shadow-[0_0_70px_rgba(236,72,153,0.7)]
                 transition-shadow duration-300'>
-
+                
                 {/* Main content container */}
                 <div className="relative flex flex-col p-8 rounded-2xl z-20
                     bg-[#111]
@@ -40,85 +40,62 @@ const SignUp = () => {
                         bg-gradient-to-r from-indigo-600/20 via-pink-600/20 to-purple-600/20"></div>
 
                     {/* Logo */}
-                    <h1 className='text-3xl font-bold text-center mb-8 relative z-10
+                    <h1 className='text-3xl font-bold text-center mb-4 relative z-10
                         text-transparent bg-clip-text bg-gradient-to-r 
                         from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
                         animate-gradient-x'>
-                        Create Account
+                        Create New Password
                     </h1>
+
+                    {/* Description */}
+                    <p className='text-gray-400 text-center mb-8 relative z-10'>
+                        Your new password must be different from previous used passwords.
+                    </p>
 
                     {/* Form content */}
                     <form className='space-y-6 relative z-10'>
-                        {/* Input fields */}
+                        {/* Password Input */}
                         <div className='space-y-2'>
-                            <label className='text-gray-200 text-sm font-medium pl-1'>Full Name</label>
-                            <input
-                                type="text"
-                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
-                                focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
-                                text-white outline-none transition-all duration-300'
-                                placeholder='Enter your full name'
-                            />
-                        </div>
-
-                        <div className='space-y-2'>
-                            <label className='text-gray-200 text-sm font-medium pl-1'>Email</label>
-                            <input
-                                type="email"
-                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
-                                focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
-                                text-white outline-none transition-all duration-300'
-                                placeholder='Enter your email'
-                            />
-                        </div>
-
-                        <div className='space-y-2'>
-                            <label className='text-gray-200 text-sm font-medium pl-1'>Password</label>
-                            <input
+                            <label className='text-gray-200 text-sm font-medium pl-1'>New Password</label>
+                            <input 
                                 type="password"
                                 className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Create a password'
+                                placeholder='Enter new password'
                             />
+                            <p className="text-xs text-gray-400 pl-1">
+                                Must be at least 8 characters long
+                            </p>
                         </div>
 
+                        {/* Confirm Password Input */}
                         <div className='space-y-2'>
                             <label className='text-gray-200 text-sm font-medium pl-1'>Confirm Password</label>
-                            <input
+                            <input 
                                 type="password"
                                 className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Confirm your password'
+                                placeholder='Confirm new password'
                             />
                         </div>
 
-                        {/* Terms Checkbox */}
-                        <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                                <input
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-pink-500 
-                                    focus:ring-pink-500/20 bg-white/5"
-                                />
-                            </div>
-                            <label className="ml-2 block text-sm text-gray-200">
-                                I agree to the{' '}
-                                <a href="#" className="text-blue-400 hover:text-blue-300">
-                                    Terms of Service
-                                </a>
-                                {' '}and{' '}
-                                <a href="#" className="text-blue-400 hover:text-blue-300">
-                                    Privacy Policy
-                                </a>
-                            </label>
+                        {/* Password Requirements */}
+                        <div className="space-y-2">
+                            <p className="text-sm text-gray-400">Password must contain:</p>
+                            <ul className="text-xs text-gray-400 space-y-1 pl-4">
+                                <li>At least 8 characters</li>
+                                <li>At least one uppercase letter</li>
+                                <li>At least one number</li>
+                                <li>At least one special character</li>
+                            </ul>
                         </div>
 
-                        {/* Sign Up Button */}
-                        <button
+                        {/* Reset Password Button */}
+                        <button 
                             type='submit'
-                            className='w-full py-3 px-4 
+                            className='w-full py-3 px-4 mt-4
                                 relative
                                 bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
                                 text-white rounded-lg font-medium
@@ -130,16 +107,13 @@ const SignUp = () => {
                                 animate-gradient-x
                                 before:absolute before:inset-0 before:blur-xl before:bg-inherit before:opacity-40'
                         >
-                            Create Account
+                            Reset Password
                         </button>
 
-                        {/* Login Link */}
+                        {/* Back to Login Link */}
                         <Link to="/signin">
-                            <p className='text-center text-gray-400'>
-                                Already have an account?{' '}
-                                <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
-                                    Sign in
-                                </a>
+                            <p className='text-center text-gray-400 mt-4 hover:text-gray-300 transition-colors'>
+                                ← Back to Login
                             </p>
                         </Link>
                     </form>
@@ -149,4 +123,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default ResetPassword 
