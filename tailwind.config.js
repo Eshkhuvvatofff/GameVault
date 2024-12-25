@@ -72,16 +72,64 @@ export default {
   				to: {
   					transform: 'translateY(calc(-100% - var(--gap)))'
   				}
+  			},
+  			'rotate-border': {
+  				'to': {
+  					'--angle': '360deg',
+  				}
+  			},
+  			'neon-pulse': {
+  				'0%, 100%': {
+  					'box-shadow': '0 0 20px #8b5cf6, inset 0 0 20px #8b5cf6',
+  				},
+  				'50%': {
+  					'box-shadow': '0 0 35px #8b5cf6, inset 0 0 35px #8b5cf6',
+  				},
+  			},
+  			'neon-text': {
+  				'0%, 100%': {
+  					'text-shadow': '0 0 10px #8b5cf6',
+  				},
+  				'50%': {
+  					'text-shadow': '0 0 20px #8b5cf6, 0 0 30px #8b5cf6',
+  				},
+  			},
+  			'shine': {
+  				'0%': { 'transform': 'translateX(0)' },
+  				'100%': { 'transform': 'translateX(50%)' },
+  			},
+  			'gradient-x': {
+  				'0%, 100%': {
+  					'background-position': '0% 50%',
+  				},
+  				'50%': {
+  					'background-position': '100% 50%',
+  				},
   			}
   		},
   		animation: {
   			marquee: 'marquee var(--duration) infinite linear',
-  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+  			'rotate-border': 'rotate-border 8s linear infinite',
+  			'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
+  			'neon-text': 'neon-text 3s ease-in-out infinite',
+  			'border-rotate': 'border-rotate 3s linear infinite',
+  			'gradient-x': 'gradient-x 3s ease infinite',
+  			'shine': 'shine 12s linear infinite',
   		}
   	}
   },
   plugins: [
     flowbite.plugin(),
-      require("tailwindcss-animate")
-],
+      require("tailwindcss-animate"),
+      function ({ addBase }) {
+        addBase({
+          '@property --angle': {
+            syntax: '<angle>',
+            initialValue: '0deg',
+            inherits: false,
+          },
+        });
+      },
+  ],
 }

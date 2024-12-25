@@ -5,66 +5,116 @@ const Login = () => {
     return (
         <div className='h-screen w-screen flex items-center justify-center'>
             <ParticleBackground />
-            <div className='absolute z-10 w-[90%] max-w-md p-8 rounded-2xl backdrop-blur-xl bg-black/30 border border-white/10 shadow-2xl'>
-                {/* Neon effect wrapper */}
-                <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-xl -z-10'></div>
+            <div className='absolute z-10 w-[90%] max-w-md rounded-2xl backdrop-blur-xl 
+                 p-[2.5px] bg-transparent
+                overflow-hidden
+                before:content-[""]
+                before:absolute
+                before:w-[500%]
+                before:h-[100%]
+                before:bg-[linear-gradient(115deg,#4f46e5,#ec4899,#8b5cf6,#3b82f6,#f43f5e,#6366f1,#d946ef,#4f46e5,#ec4899,#8b5cf6)]
+                before:animate-shine
+                before:top-0
+                before:left-[-250%]
+                after:content-[""]
+                after:absolute
+                after:inset-[2.5px]
+                after:rounded-2xl
+                after:bg-[#111]
+                after:pointer-events-none
+                group
+                shadow-[0_0_50px_rgba(236,72,153,0.5)]
+                hover:shadow-[0_0_70px_rgba(236,72,153,0.7)]
+                transition-shadow duration-300'>
                 
-                {/* Logo yoki Sarlavha */}
-                <h1 className='text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent animate-pulse'>
-                    Welcome Back
-                </h1>
+                {/* Main content container */}
+                <div className="relative flex flex-col p-8 rounded-2xl z-20
+                    bg-[#111]
+                    shadow-[inset_0_0_30px_rgba(236,72,153,0.3)]
+                    group-hover:shadow-[inset_0_0_50px_rgba(236,72,153,0.4)]
+                    transition-all duration-500">
 
-                {/* Form */}
-                <form className='space-y-6'>
-                    {/* Email Input */}
-                    <div className='space-y-2'>
-                        <label className='text-gray-300 text-sm font-medium pl-1'>Email</label>
-                        <input 
-                            type="email"
-                            className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white outline-none transition-all duration-300'
-                            placeholder='Enter your email'
-                        />
-                    </div>
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 rounded-2xl opacity-50 blur-xl z-10
+                        bg-gradient-to-r from-indigo-600/20 via-pink-600/20 to-purple-600/20"></div>
 
-                    {/* Password Input */}
-                    <div className='space-y-2'>
-                        <label className='text-gray-300 text-sm font-medium pl-1'>Password</label>
-                        <input 
-                            type="password"
-                            className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white outline-none transition-all duration-300'
-                            placeholder='Enter your password'
-                        />
-                    </div>
+                    {/* Logo */}
+                    <h1 className='text-3xl font-bold text-center mb-8 relative z-10
+                        text-transparent bg-clip-text bg-gradient-to-r 
+                        from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
+                        animate-gradient-x'>
+                        Welcome Back
+                    </h1>
 
-                    {/* Remember & Forgot */}
-                    <div className='flex items-center justify-between text-sm'>
-                        <label className='flex items-center text-gray-300 hover:text-white transition-colors cursor-pointer'>
-                            <input type="checkbox" className='mr-2 rounded border-gray-600 text-blue-500 focus:ring-blue-500/20' />
-                            Remember me
-                        </label>
-                        <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
-                            Forgot password?
-                        </a>
-                    </div>
+                    {/* Form content */}
+                    <form className='space-y-6 relative z-10'>
+                        {/* Input fields */}
+                        <div className='space-y-2'>
+                            <label className='text-gray-200 text-sm font-medium pl-1'>Email</label>
+                            <input 
+                                type="email"
+                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                                focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
+                                text-white outline-none transition-all duration-300'
+                                placeholder='Enter your email'
+                            />
+                        </div>
 
-                    {/* Login Button */}
-                    <button 
-                        type='submit'
-                        className='w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium
-                        hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-[1.02]
-                        focus:ring-2 focus:ring-purple-500/70 active:scale-[0.98] shadow-lg shadow-purple-500/25'
-                    >
-                        Sign in
-                    </button>
+                        <div className='space-y-2'>
+                            <label className='text-gray-200 text-sm font-medium pl-1'>Password</label>
+                            <input 
+                                type="password"
+                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                                focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
+                                text-white outline-none transition-all duration-300'
+                                placeholder='Enter your password'
+                            />
+                        </div>
 
-                    {/* Register Link */}
-                    <p className='text-center text-gray-400'>
-                        Don't have an account?{' '}
-                        <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
-                            Sign up
-                        </a>
-                    </p>
-                </form>
+                        {/* Remember Me Checkbox */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 rounded border-gray-300 text-pink-500 
+                                    focus:ring-pink-500/20 bg-white/5"
+                                />
+                                <label className="ml-2 block text-sm text-gray-200">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="#" className="text-sm text-blue-400 hover:text-blue-300">
+                                Forgot password?
+                            </a>
+                        </div>
+
+                        {/* Login Button */}
+                        <button 
+                            type='submit'
+                            className='w-full py-3 px-4 
+                                relative
+                                bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
+                                text-white rounded-lg font-medium
+                                hover:shadow-[0_0_25px_rgba(236,72,153,0.5)]
+                                transition-all duration-300 
+                                transform hover:scale-[1.02]
+                                active:scale-[0.98]
+                                bg-[length:200%_auto]
+                                animate-gradient-x
+                                before:absolute before:inset-0 before:blur-xl before:bg-inherit before:opacity-40'
+                        >
+                            Sign in
+                        </button>
+
+                        {/* Register Link */}
+                        <p className='text-center text-gray-400'>
+                            Don't have an account?{' '}
+                            <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
+                                Sign up
+                            </a>
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
     )
