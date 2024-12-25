@@ -1,8 +1,8 @@
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground'
-import React, { ButtonHTMLAttributes } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Login = () => {
+const SignUp = () => {
     return (
         <div className='h-screen w-screen flex items-center justify-center'>
             <ParticleBackground />
@@ -44,12 +44,23 @@ const Login = () => {
                         text-transparent bg-clip-text bg-gradient-to-r 
                         from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
                         animate-gradient-x'>
-                        Welcome Back
+                        Create Account
                     </h1>
 
                     {/* Form content */}
                     <form className='space-y-6 relative z-10'>
                         {/* Input fields */}
+                        <div className='space-y-2'>
+                            <label className='text-gray-200 text-sm font-medium pl-1'>Full Name</label>
+                            <input
+                                type="text"
+                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                                focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
+                                text-white outline-none transition-all duration-300'
+                                placeholder='Enter your full name'
+                            />
+                        </div>
+
                         <div className='space-y-2'>
                             <label className='text-gray-200 text-sm font-medium pl-1'>Email</label>
                             <input
@@ -68,31 +79,46 @@ const Login = () => {
                                 className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Enter your password'
+                                placeholder='Create a password'
                             />
                         </div>
 
-                        {/* Remember Me Checkbox */}
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
+                        <div className='space-y-2'>
+                            <label className='text-gray-200 text-sm font-medium pl-1'>Confirm Password</label>
+                            <input
+                                type="password"
+                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                                focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
+                                text-white outline-none transition-all duration-300'
+                                placeholder='Confirm your password'
+                            />
+                        </div>
+
+                        {/* Terms Checkbox */}
+                        <div className="flex items-start">
+                            <div className="flex items-center h-5">
                                 <input
                                     type="checkbox"
                                     className="h-4 w-4 rounded border-gray-300 text-pink-500 
                                     focus:ring-pink-500/20 bg-white/5"
                                 />
-                                <label className="ml-2 block text-sm text-gray-200">
-                                    Remember me
-                                </label>
                             </div>
-                            <a href="#" className="text-sm text-blue-400 hover:text-blue-300">
-                                Forgot password?
-                            </a>
+                            <label className="ml-2 block text-sm text-gray-200">
+                                I agree to the{' '}
+                                <a href="#" className="text-blue-400 hover:text-blue-300">
+                                    Terms of Service
+                                </a>
+                                {' '}and{' '}
+                                <a href="#" className="text-blue-400 hover:text-blue-300">
+                                    Privacy Policy
+                                </a>
+                            </label>
                         </div>
 
-                        {/* Login Button */}
+                        {/* Sign Up Button */}
                         <button
                             type='submit'
-                            className='w-full py-3 px-4 mt-7
+                            className='w-full py-3 px-4 
                                 relative
                                 bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
                                 text-white rounded-lg font-medium
@@ -104,15 +130,15 @@ const Login = () => {
                                 animate-gradient-x
                                 before:absolute before:inset-0 before:blur-xl before:bg-inherit before:opacity-40'
                         >
-                            Sign in
+                            Create Account
                         </button>
 
-                        {/* Register Link */}
-                        <Link to="/signup">
-                            <p className='text-center mt-4 text-gray-400'>
-                                Don't have an account?{' '}
+                        {/* Login Link */}
+                        <Link to="/login">
+                            <p className='text-center text-gray-400'>
+                                Already have an account?{' '}
                                 <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
-                                    Sign up
+                                    Sign in
                                 </a>
                             </p>
                         </Link>
@@ -123,4 +149,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignUp
