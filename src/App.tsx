@@ -7,6 +7,8 @@ import Footer from './components/footer/Footer';
 import NotFound from './Pages/NotFound/NotFound';
 import './App.css';
 import SearchResults from './components/search/Search';
+import ParticleBackground from './components/ParticleBackground/ParticleBackground';
+import Login from './Pages/auth/Login';
 
 const App: React.FC = () => {
   return (
@@ -19,10 +21,12 @@ const App: React.FC = () => {
 const AppContent: React.FC = () => {
   const location = useLocation();
 
-  const shouldShowHeaderFooter = location.pathname !== '/404'; 
+  // header va footer faqat login sahifasida ko'rsatilmasligi kerak
+  const shouldShowHeaderFooter = location.pathname !== '/login' && location.pathname !== '/404'; 
 
   return (
     <>
+      <ParticleBackground />
       {shouldShowHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -30,6 +34,7 @@ const AppContent: React.FC = () => {
         <Route path="/*" element={<Navigate to="/404" />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="/search" element={<SearchResults />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

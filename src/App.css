@@ -1,9 +1,10 @@
 body {
   /* background-color: #111; */
-  background-image: url('https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?cs=srgb&dl=pexels-lulizler-3165335.jpg&fm=jpg');
+  /* background-image: url('https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?cs=srgb&dl=pexels-lulizler-3165335.jpg&fm=jpg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
+  background-color: #111;
 }
 
 /* Scroll dizayni */
@@ -24,4 +25,16 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #666;
+}
+
+/* src/App.css */
+.App {
+  text-align: center;
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
