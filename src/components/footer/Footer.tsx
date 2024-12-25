@@ -93,8 +93,8 @@ const Footer = () => {
               className="w-full px-8 py-4 bg-gradient-to-r from-sky-500 via-blue-500 to-sky-500 
                 rounded-xl text-base font-medium relative overflow-hidden
                 bg-[length:200%_auto] animate-gradient-xy
-                transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
-                focus:outline-none focus:ring-2 focus:ring-sky-500/50
+                transition-all duration-300 transform 
+                outline-none focus:ring-2 focus:ring-sky-500/50
                 shadow-[0_0_0_0_rgba(56,189,248,0.3)]
                 hover:shadow-[0_0_30px_0_rgba(56,189,248,0.5)]
                 focus:shadow-[0_0_30px_0_rgba(56,189,248,0.5)]"
@@ -105,7 +105,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <hr className="mb-6 mt-16 border-gray-800" />
+        <hr className="my-7 mb-6 mt-16 border-gray-800" />
 
         {/* Copyright */}
         <div className="text-center text-sm text-gray-400">
