@@ -25,12 +25,17 @@ const App: React.FC = () => {
 const AppContent: React.FC = () => {
   const location = useLocation();
 
+  const authRoutes = ['/signin', '/signup', '/restorepassword', '/reset-password'];
+  const isAuthRoute = authRoutes.includes(location.pathname);
+
+
+
   // header va footer faqat login sahifasida ko'rsatilmasligi kerak
   const shouldShowHeaderFooter = location.pathname !== '/SignIn' && location.pathname !== '/signup' && location.pathname !== '/404' && location.pathname !== '/restorepassword' && location.pathname !== '/reset-password';
 
   return (
     <>
-      <ParticleBackground />
+      {isAuthRoute && <ParticleBackground />}
       {shouldShowHeaderFooter && <Header />}
       <Routes>
         {/* Home */}
