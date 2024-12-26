@@ -7,24 +7,43 @@ body {
   background-color: #111;
 }
 
-/* Scroll dizayni */
+/* Scrollbar uchun asosiy sozlama */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px; /* Scrollbar kengligi */
 }
 
+/* Scrollbar track (yo'lak) */
 ::-webkit-scrollbar-track {
-  background: #222;
-  border-radius: 5px;
+  background: #0a0a0a; /* Cyberpunk fon (qorong‘u) */
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #222;
 }
 
+/* Scrollbar thumb (harakatlanuvchi qism) */
 ::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 5px;
-  transition: background 0.3s ease;
+  background: linear-gradient(110deg, #ff007f, #7f00f1); /* Neon gradient */
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ff007f, 0 0 25px #7f00ff;
+  animation: cyber-scroll 3s linear infinite; /* Gradient harakati */
 }
 
+/* Hover qilinganda */
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  box-shadow: 0 0 20px #ff007f, 0 0 30px #7f00ff; /* Katta shadow */
+  transition: box-shadow 0.3s ease;
+}
+
+/* Gradient animatsiyasi */
+@keyframes cyber-scroll {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* src/App.css */
