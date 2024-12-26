@@ -6,22 +6,21 @@ const Footer = () => {
     <footer className="bg-[#111]/80 backdrop-blur-md text-white/80 mt-20">
       <div className="container mx-auto px-6 py-8">
         {/* Main Sections Container */}
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+        <div className="max-w-3xl mx-auto grid gap-6  md:grid-cols-2 mb-16">
           {/* GameVault Section */}
-          <div className="space-y-6">
+          <div className="space-y-5">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
+              <div className="w-10 h-10 rounded-full ">
+                <img src="/logo.png" alt="GameVault Logo" />
+              </div>
               <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                 GameVault
               </h2>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols gap-4">
               <FooterLink to="/games" text="Games" />
-              <FooterLink to="/categories" text="New Games" />
               <FooterLink to="/about" text="Popular" />
-              <FooterLink to="/blog" text="Top Rated" />
               <FooterLink to="/faq" text="Coming Soon" />
-              <FooterLink to="/help" text="Most Played" />
             </div>
             <div className="flex space-x-4">
               <SocialLink href="https://t.me/Eshkhuvvatoff" icon={<FaTelegram />} />
@@ -37,9 +36,9 @@ const Footer = () => {
               Get in Touch
             </h2>
             <div className="space-y-4">
-              <ContactItem icon={<FaEnvelope />} text="info@gamevault.com" href="mailto:info@gamevault.com" />
-              <ContactItem icon={<FaPhone />} text="+998 90 123 45 67" href="tel:+998901234567" />
-              <ContactItem icon={<FaMapMarkerAlt />} text="Tashkent, Uzbekistan" href="#" />
+              <ContactItem icon={<FaEnvelope />} text="Eshkhuvvatofff@gmail.com" href="https://Eshkhuvvatofff@gmail.com" />
+              <ContactItem icon={<FaPhone />} text="+998 91 813 11 88" href="tel:+998918131188" />
+              <ContactItem icon={<FaMapMarkerAlt />} text="Qarshi, Uzbekistan" href="#" />
             </div>
           </div>
         </div>
