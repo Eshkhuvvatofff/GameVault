@@ -1,7 +1,38 @@
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const SignUp = () => {
+    const [showPass, setShowPass] = useState(false)
+    const [showconfirmPass, setConfirmPass] = useState(false)
+
+
+    const [isAgreed, setIsAgreed] = useState(false)
+    const [hasShownError, setHasShownError] = useState(false)
+    const navigate = useNavigate();
+
+    const agree = () => toast("please agree privasy ");
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (!isAgreed) {
+            if (!hasShownError) {
+                toast.error("Iltimos, shartlar va maxfiylik siyosatiga rozi bo'ling.");
+                setHasShownError(true);
+            }
+            return
+        }
+        setHasShownError(false);
+        // ... boshqa sahifaga o'tish kodlari ...
+        if (isAgreed == true) {
+            navigate('/')
+        }
+    }
+
+
     return (
         <div className='h-screen w-screen flex items-center justify-center'>
             <ParticleBackground />
@@ -47,17 +78,20 @@ const SignUp = () => {
                     </h1>
 
                     {/* Form content */}
-                    <form className='space-y-6 relative z-10'>
+                    <form className='space-y-6 relative z-10' onSubmit={handleSubmit}>
                         {/* Input fields */}
                         <div className='space-y-2'>
                             <label className='text-gray-200 text-sm font-medium pl-1'>Full Name</label>
-                            <input
-                                type="text"
-                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                            <div className='flex'>
+                                <input
+                                    type={showPass ? 'text' : 'password'}
+                                    className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Enter your full name'
-                            />
+                                    placeholder='Enter your full name'
+                                />
+                                <button className='absolute right-3 top-11' onClick={() => setShowPass(!showPass)}></button>
+                            </div>
                         </div>
 
                         <div className='space-y-2'>
@@ -100,6 +134,7 @@ const SignUp = () => {
                                     type="checkbox"
                                     className="h-4 w-4 rounded border-gray-300 text-pink-500 
                                     focus:ring-pink-500/20 bg-white/5"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsAgreed(e.target.checked)}
                                 />
                             </div>
                             <label className="ml-2 block text-sm text-gray-200">
@@ -113,6 +148,11 @@ const SignUp = () => {
                                 </a>
                             </label>
                         </div>
+
+                        {/* Xato xabari ko'rsatish - modalcha ko'rinishida */}
+                        {hasShownError && (
+                            <button onClick={agree}></button>
+                        )}
 
                         {/* Sign Up Button */}
                         <button
@@ -144,6 +184,7 @@ const SignUp = () => {
                     </form>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }
