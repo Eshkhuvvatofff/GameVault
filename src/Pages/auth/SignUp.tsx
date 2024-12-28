@@ -1,5 +1,6 @@
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground'
 import { Link, useNavigate } from 'react-router-dom'
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -82,16 +83,12 @@ const SignUp = () => {
                         {/* Input fields */}
                         <div className='space-y-2'>
                             <label className='text-gray-200 text-sm font-medium pl-1'>Full Name</label>
-                            <div className='flex'>
-                                <input
-                                    type={showPass ? 'text' : 'password'}
-                                    className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                            <input
+                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                    placeholder='Enter your full name'
-                                />
-                                <button className='absolute right-3 top-11' onClick={() => setShowPass(!showPass)}></button>
-                            </div>
+                                placeholder='Enter your full name'
+                            />
                         </div>
 
                         <div className='space-y-2'>
@@ -107,24 +104,30 @@ const SignUp = () => {
 
                         <div className='space-y-2'>
                             <label className='text-gray-200 text-sm font-medium pl-1'>Password</label>
-                            <input
-                                type="password"
-                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                            <div className='flex'>
+                                <input
+                                    type={showPass ? 'text' : 'password'}
+                                    className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Create a password'
-                            />
+                                    placeholder='Create a password'
+                                />
+                                <button onClick={() => setShowPass(!showPass)} className='text-gray-400 absolute right-3 mt-4'>{showPass ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}</button>
+                            </div>
                         </div>
 
                         <div className='space-y-2'>
                             <label className='text-gray-200 text-sm font-medium pl-1'>Confirm Password</label>
-                            <input
-                                type="password"
-                                className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                            <div className="flex">
+                                <input
+                                    type={showconfirmPass ? 'text' : 'password'}
+                                    className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Confirm your password'
-                            />
+                                    placeholder='Confirm your password'
+                                />
+                                <button onClick={() => setConfirmPass(!showconfirmPass)}  className='text-gray-400 absolute right-3 mt-4' >{showPass ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}</button>
+                            </div>
                         </div>
 
                         {/* Terms Checkbox */}
