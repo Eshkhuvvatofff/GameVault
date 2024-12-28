@@ -1,15 +1,24 @@
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground';
 import { Link, useNavigate } from 'react-router-dom';
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from 'react';
+import { useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './style/SignUp.css'
 
 const SignUp = () => {
     const [showPass, setShowPass] = useState(false);
     const [showConfirmPass, setConfirmPass] = useState(false);
     const [isAgreed, setIsAgreed] = useState(false);
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [isToastShown, setIsToastShown] = useState(false);
+    const [passwordError, setPasswordError] = useState("");
+
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
     const navigate = useNavigate();
 
@@ -19,7 +28,15 @@ const SignUp = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!isAgreed) {
+
+        // Agar inputlar to'liq bo'lmasa
+        if (!username || !email || !password || !confirmPassword) {
+            toast.error("Please fill in all the fields.", {
+                autoClose: 3000,
+            });
+        }
+        // Agar foydalanuvchi shartnoma bilan rozi bo'lmasa
+        else if (!isAgreed) {
             if (!isToastShown) {
                 toast.error("Please agree to the terms and privacy policy.", {
                     onClose: handleToastExit,
@@ -27,6 +44,26 @@ const SignUp = () => {
                 });
                 setIsToastShown(true);
             }
+        }
+        // Agar parollar mos kelmasa
+        else if (password !== confirmPassword) {
+            // Borderni qizil qilish va shake animatsiyasini qo'llash
+            if (passwordRef.current && confirmPasswordRef.current) {
+                passwordRef.current.classList.add("border-red-500", "shake");
+                confirmPasswordRef.current.classList.add("border-red-500", "shake");
+
+                // Shake animatsiyasini o'chirish uchun vaqtni belgilaymiz
+                setTimeout(() => {
+                    if (passwordRef.current && confirmPasswordRef.current) {
+                        passwordRef.current.classList.remove("shake");
+                        confirmPasswordRef.current.classList.remove("shake");
+                    }
+                }, 500);
+            }
+        }
+        // Agar parol 8 raqamdan kam bo'lsa
+        else if (password.length < 8) {
+            setPasswordError("Password must be at least 8 characters long.");
         } else {
             toast.success("Account created successfully!", {
                 autoClose: 3000,
@@ -76,7 +113,7 @@ const SignUp = () => {
                     </h1>
 
                     <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
-                        {/* Input fields */}
+                        {/* Username input */}
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Username</label>
                             <input
@@ -84,9 +121,12 @@ const SignUp = () => {
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300"
                                 placeholder="Enter your username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
 
+                        {/* Email input */}
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Email Address</label>
                             <input
@@ -95,18 +135,24 @@ const SignUp = () => {
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300"
                                 placeholder="Enter your email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
 
+                        {/* Password input */}
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Password</label>
                             <div className="flex">
                                 <input
+                                    ref={passwordRef}
                                     type={showPass ? "text" : "password"}
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                     focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                     text-white outline-none transition-all duration-300"
                                     placeholder="Create a strong password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <button
                                     type="button"
@@ -120,17 +166,24 @@ const SignUp = () => {
                                     )}
                                 </button>
                             </div>
+                            {passwordError && (
+                                <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+                            )}
                         </div>
 
+                        {/* Confirm Password input */}
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Confirm Password</label>
                             <div className="flex">
                                 <input
+                                    ref={confirmPasswordRef}
                                     type={showConfirmPass ? "text" : "password"}
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                     focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                     text-white outline-none transition-all duration-300"
                                     placeholder="Confirm your password"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 <button
                                     type="button"
@@ -146,6 +199,7 @@ const SignUp = () => {
                             </div>
                         </div>
 
+                        {/* Terms and Privacy checkbox */}
                         <div className="flex items-start">
                             <div className="flex items-center h-5">
                                 <input
@@ -167,35 +221,23 @@ const SignUp = () => {
                             </label>
                         </div>
 
+                        {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full py-3 px-4 
-                                relative
-                                bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
-                                text-white rounded-lg font-medium
-                                hover:shadow-[0_0_25px_rgba(236,72,153,0.5)]
-                                transition-all duration-300 
-                                transform hover:scale-[1.02]
-                                active:scale-[0.98]
-                                bg-[length:200%_auto]
-                                animate-gradient-x
-                                before:absolute before:inset-0 before:blur-xl before:bg-inherit before:opacity-40"
+                            disabled={!isAgreed || !username || !email || !password || !confirmPassword}
+                            className={`w-full py-3 px-4 relative bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6] text-white rounded-lg font-medium
+    hover:shadow-[0_0_25px_rgba(236,72,153,0.5)] transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
+    bg-[length:200%_auto] animate-gradient-x before:absolute before:inset-0 before:blur-xl before:bg-inherit before:opacity-40
+    ${!isAgreed || !username || !email || !password || !confirmPassword ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             Create Account
                         </button>
 
-                        <Link to="/signin">
-                            <p className="text-center mt-3 text-gray-400">
-                                Already have an account?{" "}
-                                <a href="#" className="text-blue-400 hover:text-blue-300 transition-colors">
-                                    Sign in
-                                </a>
-                            </p>
-                        </Link>
                     </form>
+
+                    <ToastContainer />
                 </div>
             </div>
-            <ToastContainer toastStyle={{ fontSize: '13px' }} />
         </div>
     );
 };
