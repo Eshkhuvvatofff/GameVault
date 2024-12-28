@@ -15,27 +15,24 @@ const SignUp = () => {
     const [hasShownError, setHasShownError] = useState(false)
     const navigate = useNavigate();
 
-    const agree = () => toast("please agree privasy ");
+    const agree = () => toast("Please agree to the privacy policy.");
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!isAgreed) {
             if (!hasShownError) {
-                toast.error("Iltimos, shartlar va maxfiylik siyosatiga rozi bo'ling.");
+                toast.error("Please agree to the terms and privacy policy.");
                 setHasShownError(true);
             }
             return
         }
         setHasShownError(false);
-        // ... boshqa sahifaga o'tish kodlari ...
-        if (isAgreed == true) {
-            navigate('/')
-        }
+        navigate('/')
     }
 
 
     return (
-        <div className='h-screen w-screen flex items-center justify-center'>
+        <div className='h-screen overflow-hidden w-screen flex items-center justify-center'>
             <ParticleBackground />
             <div className='absolute z-10 w-[90%] max-w-md rounded-2xl backdrop-blur-xl 
                  p-[2.5px] bg-transparent
@@ -82,23 +79,23 @@ const SignUp = () => {
                     <form className='space-y-6 relative z-10' onSubmit={handleSubmit}>
                         {/* Input fields */}
                         <div className='space-y-2'>
-                            <label className='text-gray-200 text-sm font-medium pl-1'>Full Name</label>
+                            <label className='text-gray-200 text-sm font-medium pl-1'>Username</label>
                             <input
                                 className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Enter your full name'
+                                placeholder='Enter your username'
                             />
                         </div>
 
                         <div className='space-y-2'>
-                            <label className='text-gray-200 text-sm font-medium pl-1'>Email</label>
+                            <label className='text-gray-200 text-sm font-medium pl-1'>Email Address</label>
                             <input
                                 type="email"
                                 className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                placeholder='Enter your email'
+                                placeholder='Enter your email address'
                             />
                         </div>
 
@@ -110,7 +107,7 @@ const SignUp = () => {
                                     className='w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
                                 focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 
                                 text-white outline-none transition-all duration-300'
-                                    placeholder='Create a password'
+                                    placeholder='Create a strong password'
                                 />
                                 <button onClick={() => setShowPass(!showPass)} className='text-gray-400 absolute right-3 mt-4'>{showPass ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}</button>
                             </div>
@@ -126,7 +123,7 @@ const SignUp = () => {
                                 text-white outline-none transition-all duration-300'
                                     placeholder='Confirm your password'
                                 />
-                                <button onClick={() => setConfirmPass(!showconfirmPass)}  className='text-gray-400 absolute right-3 mt-4' >{showPass ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}</button>
+                                <button onClick={() => setConfirmPass(!showconfirmPass)} className='text-gray-400 absolute right-3 mt-4' >{showPass ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}</button>
                             </div>
                         </div>
 
@@ -152,7 +149,7 @@ const SignUp = () => {
                             </label>
                         </div>
 
-                        {/* Xato xabari ko'rsatish - modalcha ko'rinishida */}
+                        {/* Error message */}
                         {hasShownError && (
                             <button onClick={agree}></button>
                         )}
@@ -177,7 +174,7 @@ const SignUp = () => {
 
                         {/* Login Link */}
                         <Link to="/signin">
-                            <p className='text-center text-gray-400'>
+                            <p className='text-center mt-3 text-gray-400'>
                                 Already have an account?{' '}
                                 <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
                                     Sign in
