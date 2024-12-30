@@ -1,10 +1,15 @@
 body {
-  background-color: #111;
+  /* background-color: #111; */
+  background-image: url("https://i.pinimg.com/736x/3f/63/7f/3f637fea58b3a71a080d77152978f2e4.jpg");
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
   color: #fff;
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
 }
+
 
 ::-webkit-scrollbar {
   width: 6px;

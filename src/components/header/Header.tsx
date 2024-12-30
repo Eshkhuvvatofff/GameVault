@@ -40,7 +40,7 @@ const Header = () => {
       {/* Headerning balandligiga teng bo'lgan placeholder div */}
       <div className="h-16"></div>
 
-      <header className="bg-transparent backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-lg">
+      <header className="bg-transparent backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-lg">
         <nav className="px-4 lg:px-6 h-16">
           <div className="max-w-screen-xl mx-auto flex items-center justify-between h-full">
             {/* Logo va Search Container */}

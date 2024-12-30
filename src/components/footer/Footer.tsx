@@ -6,7 +6,7 @@ const Footer = () => {
   if (location.pathname === '/signin' || location.pathname === '/signup' || location.pathname === '/restorepassword' || location.pathname === '/reset-password') return null;
 
   return (
-    <footer className="bg-[#111]/80 backdrop-blur-md text-white/80 mt-20">
+    <footer className="backdrop-blur-md text-white/80 mt-20">
       <div className="container mx-auto px-6 py-8">
         {/* Main Sections Container */}
         <div className="max-w-3xl mx-auto grid gap-6  md:grid-cols-2 mb-16">
@@ -48,7 +48,7 @@ const Footer = () => {
 
         {/* Comment Section */}
         <div className="max-w-3xl mx-auto">
-          <form action="https://formspree.io/f/your_form_id" method="POST" className="space-y-6">
+          <form action="https://formspree.io/f/mpwwlplo" method="POST" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {['name', 'email'].map((field) => (
                 <input
