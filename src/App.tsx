@@ -12,6 +12,7 @@ import SignUp from './Pages/auth/SignUp';
 import ForgotPassword from './Pages/auth/ForgotPassword';
 import ResetPassword from './Pages/auth/ResetPassword';
 import './App.css';
+import Cursor from './components/customcursor/custom-cr';
 
 
 const App: React.FC = () => {
@@ -35,6 +36,8 @@ const AppContent: React.FC = () => {
 
   return (
     <>
+
+      <Cursor />
       {isAuthRoute && <ParticleBackground />}
       {shouldShowHeaderFooter && <Header />}
       <Routes>
