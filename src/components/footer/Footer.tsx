@@ -92,14 +92,18 @@ const Footer = () => {
             ></textarea>
             <button
               type="submit"
-              className="w-full px-8 py-4 bg-gradient-to-r from-sky-500 via-blue-500 to-sky-500 
-                rounded-xl text-base font-medium relative overflow-hidden
-                bg-[length:200%_auto] animate-gradient-xy
-                transition-all duration-300 transform 
-                outline-none focus:ring-2 focus:ring-sky-500/50
-                shadow-[0_0_0_0_rgba(56,189,248,0.3)]
-                hover:shadow-[0_0_30px_0_rgba(56,189,248,0.5)]
-                focus:shadow-[0_0_30px_0_rgba(56,189,248,0.5)]"
+              className='w-full mt-6 py-4 px-4 
+                                relative
+                                bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
+                                text-white rounded-lg font-medium
+                                hover:shadow-[0_0_25px_rgba(236,72,153,0.5)]
+                                transition-all duration-600 
+                                transform hover:scale-[1.02]
+                                active:scale-[0.98]
+                                bg-[length:200%_auto]
+                                animate-gradient-x
+                                before:absolute before:inset-0 before:blur-xl before:bg-inherit before:opacity-40'
+                            
             >
               Send Comment
             </button>
