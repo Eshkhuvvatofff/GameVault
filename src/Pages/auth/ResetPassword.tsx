@@ -99,7 +99,7 @@ const ResetPassword = () => {
                                 bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
                                 text-white rounded-lg font-medium
                                 hover:shadow-[0_0_25px_rgba(236,72,153,0.5)]
-                                transition-all duration-300 
+                                transition-all duration-600 
                                 transform hover:scale-[1.02]
                                 active:scale-[0.98]
                                 bg-[length:200%_auto]
