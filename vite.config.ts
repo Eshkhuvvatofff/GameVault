@@ -14,5 +14,13 @@ export default defineConfig({
   server: {
     port: 2008,
     open: true,
-  }
+  },
+  build: {
+    assetsInlineLimit: 4096,
+    chunkSizeWarningLimit: 500, 
+    manifest: true,
+  },
+  optimizeDeps: {
+    include: ['some-dependency'], 
+  },
 })
