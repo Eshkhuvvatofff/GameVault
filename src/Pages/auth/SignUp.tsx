@@ -5,8 +5,15 @@ import { useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './style/SignUp.css'
+import { useAuth } from "../../components/authcontext/AuthContext";
 
-const SignUp = () => {
+
+
+
+
+const SignUp: React.FC = () => {
+    const { signUp } = useAuth()
+
     const [showPass, setShowPass] = useState(false);
     const [showConfirmPass, setConfirmPass] = useState(false);
     const [isAgreed, setIsAgreed] = useState(false);
@@ -17,25 +24,54 @@ const SignUp = () => {
     const [isToastShown, setIsToastShown] = useState(false);
     const [passwordError, setPasswordError] = useState("");
 
+
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
+
     const navigate = useNavigate();
+
+
+    const handesignup = async () => {
+        try {
+            await signUp(username, email, password)
+            navigate("/")
+        }
+
+        catch (error: any) {
+            toast.error("hatolik"), {
+                autoClose: 3000,
+
+            }
+
+        }
+
+    }
+
+
+
+
+
+
+
+
 
     const handleToastExit = () => {
         setIsToastShown(false);
+
     };
+
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Agar inputlar to'liq bo'lmasa
         if (!username || !email || !password || !confirmPassword) {
             toast.error("Please fill in all the fields.", {
                 autoClose: 3000,
             });
         }
-        // Agar foydalanuvchi shartnoma bilan rozi bo'lmasa
+
         else if (!isAgreed) {
             if (!isToastShown) {
                 toast.error("Please agree to the terms and privacy policy.", {
@@ -45,14 +81,12 @@ const SignUp = () => {
                 setIsToastShown(true);
             }
         }
-        // Agar parollar mos kelmasa
+
         else if (password !== confirmPassword) {
-            // Borderni qizil qilish va shake animatsiyasini qo'llash
             if (passwordRef.current && confirmPasswordRef.current) {
                 passwordRef.current.classList.add("border-red-500", "shake");
                 confirmPasswordRef.current.classList.add("border-red-500", "shake");
 
-                // Shake animatsiyasini o'chirish uchun vaqtni belgilaymiz
                 setTimeout(() => {
                     if (passwordRef.current && confirmPasswordRef.current) {
                         passwordRef.current.classList.remove("shake");
@@ -61,7 +95,6 @@ const SignUp = () => {
                 }, 500);
             }
         }
-        // Agar parol 8 raqamdan kam bo'lsa
         else if (password.length < 8) {
             setPasswordError("Password must be at least 8 characters long.");
         } else {
@@ -71,6 +104,7 @@ const SignUp = () => {
             navigate('/');
         }
     };
+
 
     return (
         <div className="h-screen overflow-hidden w-screen flex items-center justify-center">
@@ -112,8 +146,8 @@ const SignUp = () => {
                         Create Account
                     </h1>
 
+
                     <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
-                        {/* Username input */}
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Username</label>
                             <input
@@ -126,7 +160,7 @@ const SignUp = () => {
                             />
                         </div>
 
-                        {/* Email input */}
+
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Email Address</label>
                             <input
@@ -140,7 +174,6 @@ const SignUp = () => {
                             />
                         </div>
 
-                        {/* Password input */}
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Password</label>
                             <div className="flex">
@@ -154,6 +187,7 @@ const SignUp = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+
                                 <button
                                     type="button"
                                     onClick={() => setShowPass(!showPass)}
@@ -171,7 +205,7 @@ const SignUp = () => {
                             )}
                         </div>
 
-                        {/* Confirm Password input */}
+
                         <div className="space-y-2">
                             <label className="text-gray-200 text-sm font-medium pl-1">Confirm Password</label>
                             <div className="flex">
@@ -199,7 +233,6 @@ const SignUp = () => {
                             </div>
                         </div>
 
-                        {/* Terms and Privacy checkbox */}
                         <div className="flex items-start">
                             <div className="flex items-center h-5">
                                 <input
@@ -221,9 +254,10 @@ const SignUp = () => {
                             </label>
                         </div>
 
-                        {/* Submit Button */}
+
                         <button
                             type="submit"
+                            onClick={handesignup}
                             disabled={!isAgreed || !username || !email || !password || !confirmPassword}
                             className={`w-full py-3 px-4 relative bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6] text-white rounded-lg font-medium
     hover:shadow-[0_0_25px_rgba(236,72,153,0.5)] transition-all duration-600 transform hover:scale-[1.02] active:scale-[0.98]
@@ -234,7 +268,6 @@ const SignUp = () => {
                         </button>
 
                     </form>
-
                     <ToastContainer />
                 </div>
             </div>

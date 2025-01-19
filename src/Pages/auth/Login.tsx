@@ -2,6 +2,7 @@ import Footer from '@/components/auth(components)/Footer'
 import Header from '@/components/auth(components)/Header'
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground'
 import { Link } from 'react-router-dom'
+// import { useAuth } from "../../components/authcontext/AuthContext";
 
 const SignIn = () => {
     return (
