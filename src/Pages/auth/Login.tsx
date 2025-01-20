@@ -1,10 +1,23 @@
 import Footer from '@/components/auth(components)/Footer'
 import Header from '@/components/auth(components)/Header'
+import { useAuth } from '@/components/authcontext/AuthContext'
 import ParticleBackground from '@/components/ParticleBackground/ParticleBackground'
-import { Link } from 'react-router-dom'
-// import { useAuth } from "../../components/authcontext/AuthContext";
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
+    const {googleSignIn} =  useAuth();
+    const navigate = useNavigate();
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await googleSignIn();
+            console.log("Google bilan kirildi!");
+            navigate('/');
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'An error occurred');
+        }
+    };
     return (
         <>
             <div className='overflow-x-hidden'>
@@ -115,15 +128,24 @@ const SignIn = () => {
                                 </button>
 
                                 {/* Register Link */}
-                                <Link to="/signup">
+                                <Link to="/signup" className='text-blue-400 hover:text-blue-300 transition-colors'>
                                     <p className='text-center mt-4 text-gray-400'>
                                         Don't have an account?{' '}
-                                        <a href="#" className='text-blue-400 hover:text-blue-300 transition-colors'>
-                                            Sign up
-                                        </a>
+                                        <span>Sign up</span>
                                     </p>
                                 </Link>
+
+                                {/* Google Sign In button */}
+                                <button
+                                    type="button"
+                                    onClick={handleGoogleSignIn}
+                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-all duration-300"
+                                >
+                                    <img src="/google-logo.png" alt="Google" className="h-5 w-5" />
+                                    Continue with Google
+                                </button>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
