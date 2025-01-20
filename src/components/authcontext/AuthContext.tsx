@@ -1,3 +1,4 @@
+import { GithubAuthProvider } from "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
 import { app } from "../../firebase/firebase";
@@ -19,9 +20,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider);
-            console.log("User signed in:", result.user);
+            console.log("User signed in with Google:", result.user);
         } catch (error) {
             console.error("Error during Google Sign-In:", error);
+        }
+    };
+
+    const githubSignIn = async () => {
+        const provider = new GithubAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            console.log("User signed in with GitHub:", result.user);
+        } catch (error) {
+            console.error("Error during GitHub Sign-In:", error);
         }
     };
 
@@ -31,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ user, googleSignIn, logout }}>
+        <AuthContext.Provider value={{ user, googleSignIn, githubSignIn, logout }}>
             {children}
         </AuthContext.Provider>
     );

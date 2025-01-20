@@ -1,3 +1,5 @@
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 import Footer from '@/components/auth(components)/Footer'
 import Header from '@/components/auth(components)/Header'
 import { useAuth } from '@/components/authcontext/AuthContext'
@@ -6,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const SignIn: React.FC = () => {
-    const {googleSignIn} =  useAuth();
+    const { googleSignIn, githubSignIn } = useAuth(); // Add githubSignIn
     const navigate = useNavigate();
 
     const handleGoogleSignIn = async () => {
@@ -18,6 +20,17 @@ const SignIn: React.FC = () => {
             toast.error(error instanceof Error ? error.message : 'An error occurred');
         }
     };
+
+    const handleGithubSignIn = async () => {
+        try {
+            await githubSignIn();
+            console.log("GitHub bilan kirildi!");
+            navigate('/');
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'An error occurred');
+        }
+    };
+
     return (
         <>
             <div className='overflow-x-hidden'>
@@ -135,17 +148,33 @@ const SignIn: React.FC = () => {
                                     </p>
                                 </Link>
 
-                                {/* Google Sign In button */}
-                                <button
-                                    type="button"
-                                    onClick={handleGoogleSignIn}
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-all duration-300"
-                                >
-                                    <img src="/google-logo.png" alt="Google" className="h-5 w-5" />
-                                    Continue with Google
-                                </button>
+                                {/* Google & Github Sign In buttons */}
+                                <div className="flex w-full gap-4 mt-6">
+                                    <button
+                                        type="button"
+                                        onClick={handleGoogleSignIn}
+                                        className="flex-1 h-12 flex items-center justify-center gap-2 bg-white/10 
+                                        border border-white/20 rounded-lg shadow-lg hover:bg-white/15 
+                                        transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
+                                        group"
+                                    >
+                                        <FcGoogle className="text-2xl" />
+                                        <span className="text-gray-200 font-medium">Google</span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleGithubSignIn}  // Hook up to GitHub Sign In
+                                        className="flex-1 h-12 flex items-center justify-center gap-2 bg-white/10 
+                                        border border-white/20 rounded-lg shadow-lg hover:bg-white/15 
+                                        transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
+                                        group"
+                                    >
+                                        <FaGithub className="text-2xl text-gray-200 group-hover:text-white" />
+                                        <span className="text-gray-200 font-medium">Github</span>
+                                    </button>
+                                </div>
                             </form>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -155,7 +184,7 @@ const SignIn: React.FC = () => {
             </div>
 
         </>
-    )
-}
+    );
+};
 
-export default SignIn
+export default SignIn;
