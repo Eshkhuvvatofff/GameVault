@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { 
     getAuth, 
+    createUserWithEmailAndPassword, 
     GoogleAuthProvider, 
     GithubAuthProvider,
     signInWithPopup, 
@@ -8,17 +9,18 @@ import {
     signOut,
     linkWithCredential,
     User,
-    AuthError,
-    AuthCredential,
-    OAuthCredential
+    OAuthCredential,
+    updateProfile
 } from "firebase/auth";
 import { app } from "../../firebase/firebase";
 
+// AuthContextType interfeysini yangilash
 interface AuthContextType {
     user: User | null;
     googleSignIn: () => Promise<void>;
     githubSignIn: () => Promise<void>;
     logout: () => Promise<void>;
+    signUp: (username: string, email: string, password: string) => Promise<void>; // signUp qo'shildi
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -27,6 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<User | null>(null);
     const auth = getAuth(app);
 
+    // Foydalanuvchi holatini kuzatish
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -34,6 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return () => unsubscribe();
     }, [auth]);
 
+    // Google bilan kirish funksiyasi
     const googleSignIn = async (): Promise<void> => {
         const provider = new GoogleAuthProvider();
         try {
@@ -45,6 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // GitHub bilan kirish funksiyasi
     const githubSignIn = async (): Promise<void> => {
         const provider = new GithubAuthProvider();
         try {
@@ -61,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                         await linkWithCredential(auth.currentUser, credential);
                         console.log("Hisoblar muvaffaqiyatli birlashtirildi");
                     } catch (linkError) {
-                        console.error("Hisoblarni birlashtrishda xatolik:", linkError);
+                        console.error("Hisoblarni birlashtirishda xatolik:", linkError);
                         throw linkError;
                     }
                 }
@@ -71,6 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // Chiqish funksiyasi
     const logout = async (): Promise<void> => {
         try {
             await signOut(auth);
@@ -81,11 +87,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    // signUp funksiyasini qo‘shish
+    const signUp = async (username: string, email: string, password: string) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            console.log("Foydalanuvchi yaratildi:", userCredential.user);
+            await updateProfile(userCredential.user, { displayName: username });
+        } catch (error) {
+            console.error("Ro‘yxatdan o‘tishda xatolik:", error);
+            throw error;
+        }
+    };
+
+    // Context qiymati
     const value: AuthContextType = {
         user,
         googleSignIn,
         githubSignIn,
-        logout
+        logout,
+        signUp,  // signUp ni qo‘shish
     };
 
     return (
@@ -95,6 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 };
 
+// useAuth xooksini yaratish
 export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
     if (!context) {
