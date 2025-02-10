@@ -13,6 +13,7 @@ import ForgotPassword from './Pages/auth/ForgotPassword';
 import ResetPassword from './Pages/auth/ResetPassword';
 import './App.css';
 import Cursor from './components/customcursor/custom-cr';
+import BackgroundSlider from './components/homepage(assets)/background/BackgroundSlider';
 
 
 const App: React.FC = () => {
@@ -25,7 +26,11 @@ const App: React.FC = () => {
 
 const AppContent: React.FC = () => {
   const location = useLocation();
-
+  const images = [
+    "https://4kwallpapers.com/images/wallpapers/gradient-background-2560x1440-10974.jpg",
+    "https://static.vecteezy.com/system/resources/previews/049/855/259/non_2x/nature-background-high-resolution-wallpaper-for-a-serene-and-stunning-view-photo.jpg",
+    "https://t3.ftcdn.net/jpg/08/06/10/36/360_F_806103697_E9Y1vKhtQimCEIiA75QWEn4NdZe7lQXj.jpg",
+  ];
   const authRoutes = ['/signin', '/signup', '/restorepassword', '/reset-password'];
   const isAuthRoute = authRoutes.includes(location.pathname);
 
@@ -36,7 +41,7 @@ const AppContent: React.FC = () => {
 
   return (
     <>
-
+      <BackgroundSlider images={images} interval={4000} />
       <Cursor />
       {isAuthRoute && <ParticleBackground />}
       {shouldShowHeaderFooter && <Header />}
