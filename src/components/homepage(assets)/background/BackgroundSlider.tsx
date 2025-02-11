@@ -18,7 +18,7 @@ const BackgroundSlider: React.FC<BackgroundSliderProps> = ({ slides, interval = 
   }, [slides, interval]);
 
   return (
-    <div className="w-full h-screen overflow-hidden absolute -z-50 -mt-16">
+    <div className="w-full h-screen opacity-50 overflow-hidden absolute -z-50 -mt-16">
       <AnimatePresence>
         {slides.map((slide, index) => (
           index === currentIndex && (
