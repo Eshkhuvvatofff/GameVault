@@ -31,7 +31,7 @@ Loyihani ishga tushirish uchun quyidagi bosqichlarni bajaring:
 
 ```sh
 # Repository'ni klonlash
-$ git clone https://github.com/YOUR_USERNAME/GameVault.git
+$ git clone https://github.com/Eshkhuvvatofff/GameVault.git
 
 # Loyihaga o‘tish
 $ cd GameVault
