@@ -92,7 +92,7 @@ const Footer = () => {
             ></textarea>
             <button
               type="submit"
-              className='w-full mt-6 py-4 px-4 
+              className='w-full mt-6 py-5  px-4 
                                 relative
                                 bg-gradient-to-r from-[#4f46e5] via-[#ec4899] to-[#8b5cf6]
                                 text-white rounded-lg font-medium
@@ -114,7 +114,7 @@ const Footer = () => {
         <hr className="my-7 mb-6 mt-16 border-gray-800" />
 
         {/* Copyright */}
-        <div className="text-center text-sm text-gray-400">
+        <div className="text-center text-sm text-gray-400 -mb-2">
           © {new Date().getFullYear()} GameVault. All rights reserved.
         </div>
       </div>
