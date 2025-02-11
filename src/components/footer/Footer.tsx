@@ -6,7 +6,7 @@ const Footer = () => {
   if (location.pathname === '/signin' || location.pathname === '/signup' || location.pathname === '/restorepassword' || location.pathname === '/reset-password') return null;
 
   return (
-    <footer className="backdrop-blur-md text-white/80 mt-20">
+    <footer className="backdrop-blur-md text-white/80 mt-[800px] z-40">
       <div className="container mx-auto px-6 py-8">
         {/* Main Sections Container */}
         <div className="max-w-3xl mx-auto grid gap-6  md:grid-cols-2 mb-16">
