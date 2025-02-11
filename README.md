@@ -1,54 +1,57 @@
 # 🎮 GameVault
 
-Welcome to **GameVault** – your ultimate gaming hub! 🚀
+<img src="/public/logo.png" alt="GameVault Logo" width="150" align="right" />
 
-## 🌟 Features
-
-- 🔥 **Discover** trending & popular games
-- 🔍 **Search** for your favorite games instantly
-- 🎭 **Categorized** games for easy browsing
-- 📋 **User Profiles** to save favorites
-- 🚀 **Fast & Responsive** UI with smooth animations
-
-## 🛠️ Tech Stack
-
-- ⚛ **React** (Vite + TypeScript)
-- 🎨 **TailwindCSS + Flowbite + MagicUI**
-- 🔥 **Firebase** (Auth & Database)
-- 🌍 **React Router** for seamless navigation
-
-## 🚀 Getting Started
-
-1. **Clone the Repo**
-   ```bash
-   git clone https://github.com/your-username/GameVault.git
-   cd GameVault
-   ```
-2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
-3. **Setup Firebase** (Add config in `.env` file)
-4. **Run the App**
-   ```bash
-   npm run dev
-   ```
-
-## 🛡️ Authentication
-
-- 🔑 **Email & Password Login**
-- 🌐 **Google & GitHub OAuth**
-- 🔄 **Persistent User Sessions**
-
-## 💡 Contributing
-
-Contributions are welcome! Feel free to submit a PR or open an issue. 🎯
-
-## 📄 License
-
-MIT License © 2025 GameVault
+GameVault — bu zamonaviy va qulay **o‘yin platformasi**, unda siz **torrent o‘yinlarini yuklashingiz**, **savegame fayllaringizni** online kuzatishingiz va **profilingizga ulangan sahifalar orqali** oldingi yutuqlaringizni ko‘rishingiz mumkin!
 
 ---
 
-🚀 **Play More, Explore More!**
+## 🚀 Asosiy afzalliklar
+
+1. **Oson va tezkor yuklash** — O'yinlaringizni torrent orqali yuklab oling va arxivlash.
+2. **Savegame sinxronizatsiyasi** — O‘yinlaringizni o‘ynash davomida avtomatik saqlash va istalgan vaqtda ko‘rib chiqish.
+3. **Profil bilan bog‘langan tizim** — O‘zingizning o‘yin tarixingizni kuzatish va rivojlanishingizni nazorat qilish.
+
+---
+
+## 🛠 Texnologiyalar
+
+GameVault quyidagi zamonaviy texnologiyalar yordamida ishlab chiqilgan:
+
+- ⚛ **React (Vite + TypeScript)**
+- 🎨 **TailwindCSS + Flowbite + MagicUI**
+- 🔥 **Firebase (Auth & Database)**
+- 🌍 **React Router**
+
+---
+
+## 📥 O‘rnatish
+
+Loyihani ishga tushirish uchun quyidagi bosqichlarni bajaring:
+
+```sh
+# Repository'ni klonlash
+$ git clone https://github.com/Eshkhuvvatofff/GameVault.git
+
+# Loyihaga o‘tish
+$ cd GameVault
+
+# Zaruriy paketlarni o‘rnatish
+$ npm install
+
+# Local serverni ishga tushirish
+$ npm run dev
+```
+
+---
+
+## 📜 Litsenziya
+
+**Litsenziya: [Litsenziya here]**
+
+---
+
+## 👤 Muallif
+
+- **Eshquvvatov Asliddin**
 
