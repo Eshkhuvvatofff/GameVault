@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface BackgroundSliderProps {
-  slides: string[];
-  interval?: number; // milliseconds
-  duration?: number; // animation duration
+  slides: string[]; // Rasmlar va videolar aralash bo'lishi mumkin
+  interval?: number; // ms, slayder o'zgarish vaqti
+  duration?: number; // animatsiya davomiyligi
 }
 
 const BackgroundSlider: React.FC<BackgroundSliderProps> = ({ slides, interval = 5000, duration = 1 }) => {
@@ -25,12 +25,23 @@ const BackgroundSlider: React.FC<BackgroundSliderProps> = ({ slides, interval = 
             <motion.div
               key={index}
               className="absolute w-full h-full top-0"
-              initial={index === 0 ? { opacity: 0 } : { x: "100%", opacity: 0 }}
-              animate={{ x: "0%", opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration }}
             >
-              <img src={slide} alt="Background" className="w-full h-full object-cover" />
+              {slide.endsWith(".mp4") || slide.endsWith(".webm") ? (
+                <video
+                  src={slide}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
+                <img src={slide} alt="Background" className="w-full h-full object-cover" />
+              )}
             </motion.div>
           )
         ))}
