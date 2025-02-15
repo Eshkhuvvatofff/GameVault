@@ -1,11 +1,9 @@
-import ParticleBackground from "@/components/ParticleBackground/ParticleBackground"
 
 const LandingPage = () => {
   
   return (
     <div>
-      <div className="">
-        <ParticleBackground />
+      <div>
         <h1>content here</h1>
       </div>
     </div>

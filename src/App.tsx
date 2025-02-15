@@ -13,7 +13,8 @@ import ForgotPassword from './Pages/auth/ForgotPassword';
 import ResetPassword from './Pages/auth/ResetPassword';
 import './App.css';
 import Cursor from './components/customcursor/custom-cr';
-import LoadingComp from './components/loadingFn/loading';
+// import LoadingComp from './components/loadingFn/loading';
+import Particles from '@/components/ParticleBackground/particlev2';
 
 const App: React.FC = () => {
   return (
@@ -33,7 +34,7 @@ const AppContent: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  
+
 
   const authRoutes = ['/signin', '/signup', '/restorepassword', '/reset-password'];
   const isAuthRoute = authRoutes.includes(location.pathname);
@@ -44,10 +45,12 @@ const AppContent: React.FC = () => {
   return (
     <>
 
-      {loading ? (
+      {/* {loading ? (
         <LoadingComp />
-      ) : (
+      ) : ( */}
         <>
+          <Particles />
+
           <Cursor />
           {isAuthRoute && <ParticleBackground />}
           {shouldShowHeaderFooter && <Header />}
@@ -73,8 +76,8 @@ const AppContent: React.FC = () => {
           </Routes>
           {shouldShowHeaderFooter && <Footer />}
         </>
-      )}
-      
+      {/* )} */}
+
     </>
   );
 };
