@@ -1,83 +1,182 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
+import Stats from "stats.js";
 
-declare module 'three';
-
-const Particles = () => {
+const Particles: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    let scene: THREE.Scene,
+      camera: THREE.PerspectiveCamera,
+      renderer: THREE.WebGLRenderer,
+      stats: Stats,
+      geometry: THREE.BufferGeometry,
+      particleCount: number,
+      materials: THREE.PointsMaterial[] = [],
+      mouseX = 0,
+      mouseY = 0,
+      windowHalfX: number,
+      windowHalfY: number,
+      cameraZ: number,
+      parameters: any[],
+      particles: THREE.Points,
+      color: any,
+      size: number;
 
-    // Scene, Camera, Renderer
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
-    camera.position.z = 1000;
+    const init = () => {
+      const HEIGHT = window.innerHeight;
+      const WIDTH = window.innerWidth;
+      windowHalfX = WIDTH / 2;
+      windowHalfY = HEIGHT / 2;
 
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
+      const fieldOfView = 75;
+      const aspectRatio = WIDTH / HEIGHT;
+      const nearPlane = 1;
+      const farPlane = 3000;
 
-    // Particles
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(60000 * 3);
-    for (let i = 0; i < positions.length; i++) {
-      positions[i] = (Math.random() * 2000) - 1000;
-    }
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      cameraZ = farPlane / 3;
+      const fogHex = 0x000000;
+      const fogDensity = 0.0007;
 
-    const materials: THREE.PointsMaterial[] = [];
-    const parameters = [
-      [[1, 1, 0.5], 5],
-      [[0.95, 1, 0.5], 4],
-      [[0.90, 1, 0.5], 3],
-      [[0.85, 1, 0.5], 2],
-      [[0.80, 1, 0.5], 1]
-    ];
+      camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
+      camera.position.z = cameraZ;
 
-    parameters.forEach(([color, size]) => {
-      const colorArray = color as number[];
-      const material = new THREE.PointsMaterial({
-        size,
-        color: new THREE.Color(colorArray[0], colorArray[1], colorArray[2])
-      });
-      materials.push(material);
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(fogHex, fogDensity);
 
-      const particles = new THREE.Points(geometry, material);
-      particles.rotation.x = Math.random() * 6;
-      particles.rotation.y = Math.random() * 6;
-      particles.rotation.z = Math.random() * 6;
-      scene.add(particles);
-    });
+      geometry = new THREE.BufferGeometry();
+      particleCount = 5400;
 
-    // Animation
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount; i++) {
+        const index = i * 3;
+        positions[index] = Math.random() * 2000 - 1000;
+        positions[index + 1] = Math.random() * 2000 - 1000;
+        positions[index + 2] = Math.random() * 2000 - 1000;
+      }
+
+      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+      parameters = [
+        [[1, 1, 0.5], 5],
+        [[0.95, 1, 0.5], 4],
+        [[0.90, 1, 0.5], 3],
+        [[0.85, 1, 0.5], 2],
+        [[0.80, 1, 0.5], 1],
+      ];
+
+      for (let i = 0; i < parameters.length; i++) {
+        color = parameters[i][0];
+        size = parameters[i][1];
+
+        materials[i] = new THREE.PointsMaterial({
+          size: size,
+        });
+
+        particles = new THREE.Points(geometry, materials[i]);
+        particles.rotation.x = Math.random() * 6;
+        particles.rotation.y = Math.random() * 6;
+        particles.rotation.z = Math.random() * 6;
+
+        scene.add(particles);
+      }
+
+      renderer = new THREE.WebGLRenderer();
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(WIDTH, HEIGHT);
+
+      if (mountRef.current) {
+        mountRef.current.appendChild(renderer.domElement);
+      }
+
+      stats = new Stats();
+      stats.domElement.style.display = "none";
+
+      window.addEventListener("resize", onWindowResize, false);
+      document.addEventListener("mousemove", onDocumentMouseMove, false);
+      document.addEventListener("touchstart", onDocumentTouchStart, false);
+      document.addEventListener("touchmove", onDocumentTouchMove, false);
+    };
+
     const animate = () => {
       requestAnimationFrame(animate);
+      render();
+      stats.update();
+    };
+
+    const render = () => {
       const time = Date.now() * 0.00005;
 
-      scene.children.forEach((object: THREE.Object3D, i:number) => {
+      camera.position.x += (mouseX - camera.position.x) * 0.03;
+      camera.position.y += (-mouseY - camera.position.y) * 0.03;
+      camera.lookAt(scene.position);
+
+      for (let i = 0; i < scene.children.length; i++) {
+        const object = scene.children[i];
+
         if (object instanceof THREE.Points) {
           object.rotation.y = time * (i < 4 ? i + 1 : -(i + 1));
         }
-      });
+      }
 
-      materials.forEach((material, i) => {
-        const color = parameters[i][0] as number[];
+      for (let i = 0; i < materials.length; i++) {
+        color = parameters[i][0];
         const h = (360 * (color[0] + time) % 360) / 360;
-        material.color.setHSL(h, color[1], color[2]);
-      });
+        materials[i].color.setHSL(h, color[1], color[2]);
+      }
 
       renderer.render(scene, camera);
     };
+
+    const onDocumentMouseMove = (event: MouseEvent) => {
+      mouseX = event.clientX - windowHalfX;
+      mouseY = event.clientY - windowHalfY;
+    };
+
+    const onDocumentTouchStart = (event: TouchEvent) => {
+      if (event.touches.length === 1) {
+        event.preventDefault();
+        mouseX = event.touches[0].pageX - windowHalfX;
+        mouseY = event.touches[0].pageY - windowHalfY;
+      }
+    };
+
+    const onDocumentTouchMove = (event: TouchEvent) => {
+      if (event.touches.length === 1) {
+        event.preventDefault();
+        mouseX = event.touches[0].pageX - windowHalfX;
+        mouseY = event.touches[0].pageY - windowHalfY;
+      }
+    };
+
+    const onWindowResize = () => {
+      windowHalfX = window.innerWidth / 2;
+      windowHalfY = window.innerHeight / 2;
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    // Initialize and animate the scene
+    init();
     animate();
 
-    // Cleanup
+    // Cleanup when component is unmounted
     return () => {
-      mountRef.current?.removeChild(renderer.domElement);
+      window.removeEventListener("resize", onWindowResize);
+      document.removeEventListener("mousemove", onDocumentMouseMove);
+      document.removeEventListener("touchstart", onDocumentTouchStart);
+      document.removeEventListener("touchmove", onDocumentTouchMove);
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
+      stats.domElement.style.display = "none";
     };
   }, []);
 
-  return <div ref={mountRef} className="w-full opacity-40 fixed h-full" />;
+  return <div ref={mountRef} style={{ width: "100%", height: "100vh", position: "fixed", zIndex: -1 }} />;
 };
 
 export default Particles;
