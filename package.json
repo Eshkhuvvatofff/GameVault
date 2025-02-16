@@ -1,5 +1,5 @@
 {
-  "name": "gaming-store",
+  "name": "gamevault",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -37,6 +37,7 @@
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
+    "@types/stats.js": "^0.17.3",
     "@types/three": "^0.173.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",

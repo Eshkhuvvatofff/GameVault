@@ -91,7 +91,7 @@ const Particles: React.FC = () => {
       }
 
       stats = new Stats();
-      stats.domElement.style.display = "none";
+      (stats as any).domElement.style.display = "none";
 
       window.addEventListener("resize", onWindowResize, false);
       document.addEventListener("mousemove", onDocumentMouseMove, false);
@@ -172,7 +172,7 @@ const Particles: React.FC = () => {
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }
-      stats.domElement.style.display = "none";
+      (stats as any).domElement.style.display = "none";
     };
   }, []);
 
