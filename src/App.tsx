@@ -77,7 +77,6 @@ const AppContent: React.FC = () => {
           {shouldShowHeaderFooter && <Footer />}
         </>
       )}
-
     </>
   );
 };
